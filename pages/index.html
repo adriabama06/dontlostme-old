@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="icon" type="image/png" href="/favicon"/>
+</head>
+<body>
+    <style>
+        ::-webkit-scrollbar {
+            width: 14px;
+        }
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0px 0px 25px rgba(0, 0, 0, 0.3); 
+            border-radius: 50px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            background: transparent;
+            background-image: linear-gradient(rgb(255, 150, 75), rgb(255, 75, 75));
+            box-shadow: inset 0px 0px 3px rgba(0, 0, 0);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            background: transparent;
+            background-image: linear-gradient(rgb(255, 150, 75), rgb(255, 75, 75));
+            box-shadow: inset 0px 0px 3px rgba(0, 0, 0);
+        }
+
+        ::-webkit-scrollbar-thumb:window-inactive {
+	        background: transparent;
+            background-image: linear-gradient(rgba(255, 150, 75, 0.5), rgba(255, 75, 75, 0.5));
+        }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: rgb(29, 29, 29);
+            color: white;
+        }
+        input[type=text] {
+            display: inline-block;
+            margin-top: 5%;
+            margin-left: 1%;
+            width: 10%;
+            padding: 6px 10px;
+            border: 2px solid transparent;
+            border-image: linear-gradient(rgb(255, 150, 0), rgb(255, 0, 0));
+            border-image-slice: 1;
+            box-sizing: border-box;
+            outline: none;
+        }
+        #create button {
+            display: inline-block;
+            animation-duration: 2s;
+            color: white;
+            font-size: 14px;
+            transition-duration: 0.8s;
+            background-image: linear-gradient(rgb(255, 150, 75), rgb(255, 75, 75));
+            padding: 8px 10px;
+            border: none;
+            cursor: no-drop;
+            width: 8%;
+            outline: none;
+        }
+        #create button:hover {
+            transition-duration: 0.8s;
+            opacity: 0.8
+        }
+        @keyframes error {
+            0% {
+                transform: rotateZ(0.03turn);
+            } 
+            25% {
+                transform: rotateZ(-0.03turn);
+            }
+            50% {
+                transform: rotateZ(0.03turn);
+            }
+            75% {
+                transform: rotateZ(-0.03turn);
+            }
+            100% {
+                transform: rotateZ(0turn);
+            }
+        }
+        #dirs {
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            justify-content: center;
+            grid-column-gap: 20px;
+            grid-row-gap: 10px;
+            position: relative;
+            left: 1%;
+            width: 90%;
+            border: 3px solid transparent;
+            border-image: linear-gradient(rgb(255, 150, 0), rgb(255, 0, 0));
+            border-image-slice: 1;
+        }
+        #files {
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            justify-content: center;
+            grid-column-gap: 20px;
+            grid-row-gap: 10px;
+            position: relative;
+            left: 1%;
+            width: 90%;
+            border: 3px solid transparent;
+            border-image: linear-gradient(rgb(255, 150, 0), rgb(255, 0, 0));
+            border-image-slice: 1;
+        }
+        .logout {
+            text-decoration: none;
+            animation-duration: 2s;
+            color: white;
+            font-size: 16px;
+            transition-duration: 0.8s;
+            position: relative;
+            left: 90%;
+            top: 20px;
+            background-image: linear-gradient(rgb(255, 150, 75), rgb(255, 75, 75));
+            padding: 14px 20px;
+            border: none;
+            cursor: pointer;
+            width: 10%;
+            outline: none;
+        }
+        .logout:hover {
+            transition-duration: 0.8s;
+            opacity: 0.8
+        }
+        .zone {
+            border: 3px solid transparent;
+            border-image: linear-gradient(rgb(255, 150, 0), rgb(255, 0, 0));
+            border-image-slice: 1;
+            position: relative;
+            width: 300px;
+            height: 100px;
+            display: grid;
+            justify-content: center;
+        }
+        .zone a {
+            display: block;
+            position: relative;
+            left: 5%;
+            text-decoration: none;
+            color: white;
+            font-size: 24px;
+            word-break: break-all;
+            word-wrap: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis; 
+            white-space: nowrap;
+        }
+        .zone button {
+            transition-duration: 0.8s;
+            display: inline-table;
+            position: relative;
+            left: 5%;
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            width: min-content;
+            height: 32px;
+            background-image: linear-gradient(rgb(255, 150, 75), rgb(255, 75, 75));
+            outline: none;
+            border: none;
+            word-break: break-all;
+            word-wrap: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis; 
+            white-space: nowrap;
+        }
+        .zone button:hover {
+            transition-duration: 0.8s;
+            opacity: 0.8
+        }
+        .fileupload {
+            cursor: pointer;
+        }
+        #goback {
+            text-decoration: none;
+            animation-duration: 2s;
+            color: white;
+            font-size: 16px;
+            transition-duration: 0.8s;
+            position: relative;
+            left: 86%;
+            top: 20px;
+            background-image: linear-gradient(rgb(255, 150, 75), rgb(255, 75, 75));
+            padding: 14px 20px;
+            border: none;
+            cursor: pointer;
+            width: 10%;
+            outline: none;
+        }
+        #goback:hover {
+            transition-duration: 0.8s;
+            opacity: 0.8
+        }
+    </style>
+    <script type="text/javascript">
+        console.time('loadtime');
+        function reload() {
+            const url = new URL(window.location.href);
+            var xmlHTTP = new XMLHttpRequest();
+            var requrl = [window.location.origin, '/api/gdir'];
+            xmlHTTP.open('POST', requrl.join(""));
+            xmlHTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xmlHTTP.send(url.searchParams.has('d') ? JSON.stringify({dir: url.searchParams.get('d')}) : JSON.stringify({dir: false}));
+
+            function loadend(e) {
+                /**
+                 * @type {{status: boolean, dirs: string[], files: string[]}}
+                 */
+                var res = JSON.parse(xmlHTTP.response);
+
+                if(res && res.status && res.status === true) {
+                    for(var i = 0; i < res.dirs.length; i++) {
+                        addDir(res.dirs[i]);
+                    }
+                    for(var i = 0; i < res.files.length; i++) {
+                        addFile(res.files[i]);
+                    }
+                } else {
+                    alert('Hay un error, prueba de recargar');
+                }
+            }
+
+            xmlHTTP.addEventListener("loadend", loadend, false);
+        }
+        /**
+         * @param {string} name
+         */
+        function addDir(name) {
+            const url = new URL(window.location.href);
+            var dirs = document.getElementById('dirs');
+            var zone = document.createElement("DIV");
+            var dir = document.createElement("A");
+            var dirdel = document.createElement("BUTTON");
+            zone.id = `dir.${name}`;
+            zone.className = 'zone';
+            dirdel.innerHTML = `Eliminar`;
+            dirdel.style.cursor = 'pointer';
+            dirdel.onclick = function () {
+                var xmlHTTP = new XMLHttpRequest();
+                var requrl = [window.location.origin, '/api/mdir'];
+                xmlHTTP.open('DELETE', requrl.join(""));
+                xmlHTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xmlHTTP.send(url.searchParams.has('d') ? JSON.stringify({name: name, dir: url.searchParams.get('d')}) : JSON.stringify({name: name, dir: false}));
+                document.getElementById(`dir.${name}`).remove();
+                function loadend(e) {
+                    /**
+                     * @type {{status: boolean, dirs: string[], files: string[]}}
+                     */
+                    var res = JSON.parse(xmlHTTP.response);
+
+                    if(res && res.status && res.status === true) {
+                        return;
+                    } else {
+                        addDir(name);
+                        alert('Hubo un error al eliminar la carpeta, prueba de recargar');
+                        return;
+                    }
+                }
+
+                xmlHTTP.addEventListener("loadend", loadend, false);
+            }
+            dir.innerHTML = `${name}`;
+            dir.href = `${window.location.origin}/?d=${url.searchParams.has('d') ? `${url.searchParams.get('d')}/${name}` : name}`;
+            zone.appendChild(dir);
+            zone.appendChild(dirdel);
+            dirs.appendChild(zone);
+        }
+        /**
+         * @param {string} name
+         */
+        function addFile(name) {
+            const url = new URL(window.location.href);
+            var files = document.getElementById('files');
+            var zone = document.createElement("DIV");
+            var file = document.createElement("A");
+            var filedel = document.createElement("BUTTON");
+            var filedownload = document.createElement("BUTTON");
+            zone.id = `file.${name}`;;
+            zone.className = 'zone';
+            filedel.innerHTML = `Eliminar`;
+            filedownload.innerHTML = `Descargar`;
+            filedel.style.cursor = 'pointer';
+            filedownload.style.cursor = 'pointer';
+            filedel.onclick = function () {
+                var xmlHTTP = new XMLHttpRequest();
+                var requrl = [window.location.origin, '/api/mfile'];
+                xmlHTTP.open('DELETE', requrl.join(""));
+                xmlHTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xmlHTTP.send(url.searchParams.has('d') ? JSON.stringify({name: name, dir: url.searchParams.get('d')}) : JSON.stringify({name: name, dir: false}));
+                document.getElementById(`file.${name}`).remove();
+                function loadend(e) {
+                    /**
+                     * @type {{status: boolean, dirs: string[], files: string[]}}
+                     */
+                    var res = JSON.parse(xmlHTTP.response);
+
+                    if(res && res.status && res.status === true) {
+                        return;
+                    } else {
+                        addFile(name);
+                        alert('Hubo un error al eliminar el archiivo, prueba de recargar');
+                        return;
+                    }
+                }
+
+                xmlHTTP.addEventListener("loadend", loadend, false);
+            }
+            filedownload.onclick = function () {
+                var xmlHTTP = new XMLHttpRequest();
+                var requrl = [window.location.origin, '/api/mfile/download', `?name=${name}${url.searchParams.has('d') ? `&dir=${url.searchParams.get('d')}` : ""}`];
+                window.open(requrl.join(""), '__blank');
+            }
+            file.innerHTML = `${name}`;
+            file.href = `${window.location.origin}/api/mfile?name=${name}${url.searchParams.has('d') ? `&dir=${url.searchParams.get('d')}` : ""}`;
+            zone.appendChild(file);
+            zone.appendChild(filedel);
+            zone.appendChild(filedownload);
+            files.appendChild(zone);
+        }
+        function generateGoBack(e) {
+            var go = document.createElement("A");
+            go.id = 'goback';
+            go.innerHTML = 'Ir a la carpeta anterior';
+            var url = new URL(window.location.href);
+            var goback = '/';
+            if(url.searchParams.has('d')) {
+                var i = url.searchParams.get('d').split(/\//g);
+                i.pop();
+                goback = '?d='+i.join('/');
+            }
+            if(goback === '?d=') goback = '/';
+            go.href = window.location.origin+goback;
+            e.appendChild(go);
+        }
+        function crearcarpeta() {
+            const url = new URL(window.location.href);
+            var name = document.getElementById('crearcarpeta').value;
+            if(name.replace(/ /g, '') === '' || name == ' ') {
+                document.getElementById('createbutton').style.animationName = "error";
+                document.getElementById('createbutton').style.cursor = 'no-drop';
+                setTimeout(function() {
+                    document.getElementById('createbutton').style.animationName = "";
+                }, 2100);
+                return;
+            }
+            var xmlHTTP = new XMLHttpRequest();
+            var requrl = [window.location.origin, '/api/mdir'];
+            xmlHTTP.open('POST', requrl.join(""));
+            xmlHTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xmlHTTP.send(url.searchParams.has('d') ? JSON.stringify({name: name, dir: url.searchParams.get('d')}) : JSON.stringify({name: name, dir: false}));
+            function loadend(e) {
+                /**
+                 * @type {{status: boolean, dirs: string[], files: string[]}}
+                */
+                var res = JSON.parse(xmlHTTP.response);
+
+                if(res && res.status && res.status === true) {
+                    addDir(name);
+                    document.getElementById('crearcarpeta').value = "";
+                    return;
+                } else {
+                    alert('Hubo un error al crear la carpeta, prueba de recargar');
+                    document.getElementById('createbutton').style.animationName = "error";
+                    document.getElementById('createbutton').style.cursor = 'no-drop';
+                    setTimeout(function() {
+                        document.getElementById('createbutton').style.animationName = "";
+                    }, 2100);
+                    return;
+                }
+            }
+
+            xmlHTTP.addEventListener("loadend", loadend, false);
+        }
+        function addFileUpload(file) {
+            var fd = new FormData();
+            fd.append('file', file);
+            var xmlHTTP = new XMLHttpRequest();
+            addFile(file.name);
+            var progressbar = document.createElement('PROGRESS');
+            progressbar.id = `progress.${file.name}`;
+            progressbar.max = 100;
+            progressbar.value = 0;
+            document.getElementById(`file.${file.name}`).appendChild(progressbar);
+            function uploadprogres(oEvent) {
+                if(oEvent.lengthComputable) {
+                    var percentComplete = oEvent.loaded / oEvent.total * 100;
+                    document.getElementById(progressbar.id).value = percentComplete;
+                }
+            }
+            xmlHTTP.upload.addEventListener("progress", uploadprogres, false);
+            function loadend(e) {
+                /**
+                 * @type {{status: boolean, dirs: string[], files: string[]}}
+                 */
+                var res = JSON.parse(xmlHTTP.response);
+
+                if(res && res.status && res.status === true) {
+                    document.getElementById(progressbar.id).remove();
+                    return;
+                } else {
+                    alert(`Hubo un error al subir el archivo ${file.name}, prueba de recargar`);
+                    return;
+                }
+            }
+            var url = new URL(window.location.href);
+            xmlHTTP.addEventListener("loadend", loadend, false)
+            var requrl = [window.location.origin, '/api/upload'];
+            if(url.searchParams.has('d')) {
+                requrl.push(`?dir=${url.searchParams.get('d')}`);
+            }
+            xmlHTTP.open('POST', requrl.join(""));
+            xmlHTTP.send(fd);
+        }
+        function upload() {
+            var files = document.getElementById('fileupload');
+            for(var i = 0; i < files.files.length; i++) {
+                var file = files.files[i];
+                addFileUpload(file);
+            }
+        }
+        function setTitle() {
+            var url = new URL(window.location.href);
+            var t = 'Inicio';
+            
+            if(url.searchParams.has('d')) {
+                var i = url.searchParams.get('d').split(/\//g);
+                t = 'Inicio - ' + i.pop();
+            }
+            
+            document.title = t;
+        }
+        function windowLoad(w) {
+            console.log('Window loaded, runing main script...');
+            reload();
+            setTitle();
+            console.log('Generators starting...');
+            generateGoBack(document.body);
+            console.timeEnd('loadtime');
+            console.log('Ended main and generators script!');
+            console.log(`Current directory: ${new URL(window.location.href).searchParams.has('d') ? new URL(window.location.href).searchParams.get('d') : 'Is not in directory'}`);
+        }
+        window.onload = windowLoad;
+    </script>
+    <a class="logout" href="/logout">Cerrar session</a>
+    
+    <h1>Carpetas:</h1>
+    <div id="dirs"></div>
+    
+    <h1>Archivos:</h1>
+    <div id="files"></div>
+
+    <div id="create">
+        <input onchange="if(this.value.replace(/ /g, '') === '') document.getElementById('createbutton').style.cursor = 'no-drop'; else document.getElementById('createbutton').style.cursor = 'pointer'" id="crearcarpeta" type="text"/>
+        <button id="createbutton" onclick="crearcarpeta();">Crear carpeta</button>
+        <input id="fileupload" type="file" onchange="upload();" multiple hidden/>
+        <label class="fileupload" for="fileupload">Elije un archivo</label>
+    </div>
+</body>
+</html>

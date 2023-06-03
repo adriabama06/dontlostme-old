@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de sesion</title>
+    <link rel="icon" type="image/png" href="/favicon"/>
+</head>
+<body>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            display: grid;
+            place-items: center;
+            background-color: rgb(29, 29, 29);
+            color: white;
+        }
+        h1 {
+            text-align: center;
+            font-size: 50px;
+        }
+        input[type=text] {
+            position: relative;
+            left: 10%;
+            margin-top: 5%;
+            width: 80%;
+            padding: 12px 20px;
+            border: 2px solid transparent;
+            border-image: linear-gradient(rgb(255, 150, 0), rgb(255, 0, 0));
+            border-image-slice: 1;
+            box-sizing: border-box;
+            outline: none;
+        }
+        input[type=password] {
+            position: relative;
+            left: 10%;
+            margin-top: 2.5%;
+            width: 80%;
+            padding: 12px 20px;
+            border: 2px solid transparent;
+            border-image: linear-gradient(rgb(255, 150, 0), rgb(255, 0, 0));
+            border-image-slice: 1;
+            box-sizing: border-box;
+            outline: none;
+        }
+        #loginArea {
+            margin-top: 10%;
+            width: 40%;
+            height: 80%;
+            border: 3px solid transparent;
+            border-image: linear-gradient(rgb(255, 150, 0), rgb(255, 0, 0));
+            border-image-slice: 1;
+        }
+        button {
+            animation-duration: 2s;
+            color: white;
+            font-size: 18px;
+            transition-duration: 0.8s;
+            position: relative;
+            left: 35%;
+            margin-top: 10%;
+            background-image: linear-gradient(rgb(255, 150, 75), rgb(255, 75, 75));
+            padding: 14px 20px;
+            border: none;
+            cursor: no-drop;
+            width: 30%;
+            outline: none;
+        }
+        button:hover {
+            transition-duration: 0.8s;
+            opacity: 0.8
+        }
+        @keyframes error {
+            0% {
+                transform: rotateZ(0.03turn);
+            } 
+            25% {
+                transform: rotateZ(-0.03turn);
+            }
+            50% {
+                transform: rotateZ(0.03turn);
+            }
+            75% {
+                transform: rotateZ(-0.03turn);
+            }
+            100% {
+                transform: rotateZ(0turn);
+            }
+        }
+    </style>
+    <script type="text/javascript">
+        function login() {
+            var user = document.getElementById('user').value;
+            var pass = document.getElementById('pass').value;
+            var tosend = {
+                "user": user,
+                "pass": pass,
+            }
+            var xmlHTTP = new XMLHttpRequest();
+            xmlHTTP.open('POST', `${window.location.origin}/login`);
+            xmlHTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xmlHTTP.send(JSON.stringify(tosend));
+
+            function loadend(e) {
+                var res = JSON.parse(xmlHTTP.response);
+                
+                if(res && res.status && res.status === true) {
+                    window.location.href = '/';
+                } else {
+                    document.getElementById('loginButton').style.animationName = "error";
+                    document.getElementById('loginButton').style.cursor = 'no-drop';
+                    setTimeout(function() {
+                        document.getElementById('loginButton').style.animationName = "";
+                    }, 2100);
+                };
+            };
+
+            xmlHTTP.addEventListener("loadend", loadend, false);
+        }
+
+        window.onkeypress = function (e) {
+            if (e.keyCode === 13) {
+                // Cancel the default action, if needed
+                e.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("loginButton").click();
+            }
+        }
+    </script>
+    <div id="loginArea" >
+        <h1>Inicio de session</h1>
+        <input id="user" onchange="if(this.value.replace(/ /g, '') === '') document.getElementById('loginButton').style.cursor = 'no-drop'; else document.getElementById('loginButton').style.cursor = 'pointer'" type="text" maxlength="30" max="30" placeholder="Usuario..." required/>
+        <input id="pass" onchange="if(this.value.replace(/ /g, '') === '') document.getElementById('loginButton').style.cursor = 'no-drop'; else document.getElementById('loginButton').style.cursor = 'pointer'" type="password" maxlength="30" max="30" placeholder="Contraseña..." required/>
+        <button id="loginButton" onclick="login();" >Iniciar session</button>
+    </div>
+</body>
+</html>
